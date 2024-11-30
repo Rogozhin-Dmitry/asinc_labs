@@ -1,46 +1,48 @@
-package ru.rogozhinda.Lab2;
+package ru.rogozhinda.Lab3;
+
 
 import java.io.FileNotFoundException;
+import java.math.BigInteger;
 
-public class Lab2 {
+import static ru.rogozhinda.Lab3.MatrixFunks.readMatrixFile;
+import static ru.rogozhinda.Lab3.MatrixFunks.readResultFile;
+
+
+public class Lab3 {
     public static void main(String[] args) throws FileNotFoundException {
         long startTime = System.nanoTime();
         testAlg(new SingleThreadLogic());
         testAlg(new MultiThreadLogic());
-        testAlg(new MultiThreadLogic2(12));
         long endTime = System.nanoTime();
         System.out.println("All time: " + (endTime - startTime) / 1_000_000_000.0);
     }
 
     public static void testAlg(ThreadLogic threadLogic) throws FileNotFoundException {
-        int SIZE = 977;
-        int REPEAT_COUNT = 10;
+        int SIZE = 11;
+        int REPEAT_COUNT = 5;
         int MATRIX_COUNT = 10;
 
         System.out.println("starts new test");
-        long[][][] matrixTestsA = new long[MATRIX_COUNT][][];
-        long[][][] matrixTestsB = new long[MATRIX_COUNT][][];
-        long[][][] matrixTestsResults = new long[MATRIX_COUNT][][];
+        int[][][] matrixTestsA = new int[MATRIX_COUNT][][];
+        long[] matrixTestsResults = new long[MATRIX_COUNT];
         System.out.println("data reading begins");
         for (int i = 0; i < MATRIX_COUNT; i++) {
-            matrixTestsA[i] = MatrixFunks.readMatrixFile("src/main/resources/lab2/test10/a_" + i + ".txt", SIZE);
-            matrixTestsB[i] = MatrixFunks.readMatrixFile("src/main/resources/lab2/test10/b_" + i + ".txt", SIZE);
-            matrixTestsResults[i] = MatrixFunks.readMatrixFile("src/main/resources/lab2/test10/c_" + i + ".txt", SIZE);
+            matrixTestsA[i] = readMatrixFile("src/main/resources/lab3/test_" + i + ".txt", SIZE);
+            matrixTestsResults[i] = readResultFile("src/main/resources/lab3/res_" + i + ".txt");
         }
         System.out.println("data reading ends correct");
 
         long SumTime = 0;
         for (int j = 0; j < REPEAT_COUNT; j++) {
             for (int i = 0; i < MATRIX_COUNT; i++) {
-                long[][] matrixA = matrixTestsA[i];
-                long[][] matrixB = matrixTestsB[i];
-                long[][] matrixResult = matrixTestsResults[i];
+                int[][] matrixA = matrixTestsA[i];
+                long matrixResult = matrixTestsResults[i];
 
                 long startTime = System.nanoTime();
-                long[][] singleResult = threadLogic.multiplicationMatrix(matrixA, matrixB);
+                BigInteger result = threadLogic.determinant(matrixA);
                 long endTime = System.nanoTime();
 
-                if (!MatrixFunks.isEquals(singleResult, matrixResult)) {
+                if (!BigInteger.valueOf(matrixResult).equals(result)) {
                     System.out.println("ERROR result is incorrect");
                     throw new Error();
                 }
