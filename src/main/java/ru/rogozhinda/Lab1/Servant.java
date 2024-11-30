@@ -1,8 +1,9 @@
 package ru.rogozhinda.Lab1;
 
+
 import java.util.Random;
 
-import static ru.rogozhinda.Lab1.Lab1.*;
+import static ru.rogozhinda.demo.HelloApplication.*;
 
 public class Servant implements Runnable {
     private final int[] table;
@@ -21,11 +22,11 @@ public class Servant implements Runnable {
             while (true) {
                 if (checkServant()) {
                     updateTable(newTable());
-                    System.out.println("Слуга наложил говна " + table[0] + " " + table[1]);
-                    Thread.sleep(500);
+                    System.out.println("Слуга наложил на стол " + table[0] + " " + table[1]);
+                    Thread.sleep(100);
                 } else {
-                    System.out.println("Слуга Ждёт пока стол будет свободен");
-                    Thread.sleep(500);
+//                    System.out.println("Слуга Ждёт пока стол будет свободен");
+                    Thread.sleep(100);
                 }
             }
 
