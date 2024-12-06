@@ -20,10 +20,9 @@ public class HelloApplication extends Application {
     private static final Label[] exampleLabels = new Label[3];
     private static final Label[] smokersLabels = new Label[3];
     private static final List<String> smokersTitles = List.of("Tobacco", "Lights", "Paper");
-    private static final List<Color> smokersColors = List.of(Color.WHITE, Color.BURLYWOOD, Color.GOLD, Color.PALETURQUOISE);
+    public static final List<Color> smokersColors = List.of(Color.WHITE, Color.BURLYWOOD, Color.GOLD, Color.PALETURQUOISE);
     private static final Circle[] tableCircles = new Circle[2];
     private static final Label[] tableLabels = new Label[2];
-    static int[] table = new int[2];
 
     public static void main(String[] args) {
 
@@ -32,6 +31,7 @@ public class HelloApplication extends Application {
             circle.setRadius(50);
             circle.setCenterX(100 + (i * 200));
             circle.setCenterY(100);
+            circle.setFill(Color.RED);
             smokersCircles[i] = circle;
 
             Label label = new Label(smokersTitles.get(i));
@@ -84,22 +84,15 @@ public class HelloApplication extends Application {
             exampleLabels[i] = label;
         }
 
-
+        Table table = new Table(tableCircles);
         new Thread(new Tobacco(table, smokersCircles[0])).start();
         new Thread(new Lights(table, smokersCircles[1])).start();
         new Thread(new Paper(table, smokersCircles[2])).start();
-        new Thread(new Servant(table)).start();
+        new Thread(new Servant(table, tableCircles)).start();
 
         Application.launch();
     }
 
-    public static synchronized void updateTable(int[] newTable) {
-        table[0] = newTable[0];
-        table[1] = newTable[1];
-
-        tableCircles[0].setFill(smokersColors.get(newTable[0]));
-        tableCircles[1].setFill(smokersColors.get(newTable[1]));
-    }
 
     @Override
     public void start(Stage stage) {

@@ -19,7 +19,7 @@ public class Lab3 {
 
     public static void testAlg(ThreadLogic threadLogic) throws FileNotFoundException {
         int SIZE = 11;
-        int REPEAT_COUNT = 5;
+        int REPEAT_COUNT = 1;
         int MATRIX_COUNT = 10;
 
         System.out.println("starts new test");

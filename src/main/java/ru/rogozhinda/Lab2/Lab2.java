@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 public class Lab2 {
     public static void main(String[] args) throws FileNotFoundException {
         long startTime = System.nanoTime();
-        testAlg(new SingleThreadLogic());
+//        testAlg(new SingleThreadLogic());
         testAlg(new MultiThreadLogic());
         testAlg(new MultiThreadLogic2(12));
         long endTime = System.nanoTime();
@@ -14,11 +14,11 @@ public class Lab2 {
 
     public static void testAlg(ThreadLogic threadLogic) throws FileNotFoundException {
         int SIZE = 977;
-        int REPEAT_COUNT = 10;
+        int REPEAT_COUNT = 1;
         int MATRIX_COUNT = 10;
-
         System.out.println("starts new test");
         long[][][] matrixTestsA = new long[MATRIX_COUNT][][];
+
         long[][][] matrixTestsB = new long[MATRIX_COUNT][][];
         long[][][] matrixTestsResults = new long[MATRIX_COUNT][][];
         System.out.println("data reading begins");

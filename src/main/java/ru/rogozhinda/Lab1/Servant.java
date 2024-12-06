@@ -1,33 +1,29 @@
 package ru.rogozhinda.Lab1;
 
 
+import javafx.scene.shape.Circle;
+
 import java.util.Random;
 
-import static ru.rogozhinda.demo.HelloApplication.*;
+import static ru.rogozhinda.asinclab1.HelloApplication.*;
 
 public class Servant implements Runnable {
-    private final int[] table;
+    private final Table table;
+    private final Circle[] tableCircles;
 
-    public Servant(int[] table) {
+    public Servant(Table table, Circle[] tableCircles) {
         this.table = table;
-    }
-
-    private boolean checkServant() {
-        return table[0] == 0 && table[1] == 0;
+        this.tableCircles = tableCircles;
     }
 
     @Override
     public void run() {
         try {
             while (true) {
-                if (checkServant()) {
-                    updateTable(newTable());
-                    System.out.println("Слуга наложил на стол " + table[0] + " " + table[1]);
-                    Thread.sleep(100);
-                } else {
-//                    System.out.println("Слуга Ждёт пока стол будет свободен");
-                    Thread.sleep(100);
-                }
+                int[] tb = newTable();
+                table.check(0);
+                table.updateTable(tb);
+                System.out.println("Слуга наложил на стол " + tb[0] + " " + tb[1]);
             }
 
         } catch (InterruptedException e) {
