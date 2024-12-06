@@ -2,10 +2,12 @@ package ru.rogozhinda.Lab1;
 
 import javafx.scene.shape.Circle;
 
-import static ru.rogozhinda.asinclab1.HelloApplication.*;
+import static ru.rogozhinda.demo.HelloApplication.*;
+
 
 public class Table {
     private final Circle[] tableCircles;
+
     private int table1 = 0;
     private int table2 = 0;
 
@@ -30,7 +32,7 @@ public class Table {
             table2 = 0;
             notifyAll();
         } else if (need == LIGHTS) {
-            while (!((table1 == LIGHTS && table2 == PAPER) || (table2 == LIGHTS && table1 == PAPER))) {
+            while (!((table1 == TOBACCO && table2 == PAPER) || (table2 == TOBACCO && table1 == PAPER))) {
                 wait();
             }
             table1 = 0;
